@@ -324,8 +324,12 @@ func match(n *Node, tag string, attrkv []string) bool {
 		if val == "" || val == n.Attr[i].Val {
 			return true
 		}
+		vals := make(map[string]bool)
+		for _, g := range strings.Fields(n.Attr[i].Val) {
+			vals[g] = true
+		}
 		for _, f := range strings.Fields(val) {
-			if !strings.Contains(n.Attr[i].Val, f) {
+			if !vals[f] {
 				return false
 			}
 		}
